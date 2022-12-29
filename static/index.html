@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <div id="conversation">
+      <!-- Conversation history will be displayed here -->
+    </div>
+    <form id="form">
+      <input type="text" id="message" placeholder="Enter message">
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      // Send the user's message to the Flask app when the form is submitted
+      document.getElementById("form").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const message = document.getElementById("message").value;
+        fetch("/chat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Display the response in the conversation history
+            const conversation = document.getElementById("conversation");
+            conversation.innerHTML += `<p><b>You:</b> ${message}</p><p><b>GPT-3:</b>${data.response}</p>`;
+            // Clear the message input
+            document.getElementById("message").value = "";
+          });
+      });
+    </script>
+  </body>
+</html>
