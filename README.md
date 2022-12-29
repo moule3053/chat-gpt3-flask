@@ -14,6 +14,7 @@ To run this app, you need to get an API key from OpenAI.
 ## Run the app using flask
 
 `export OPENAI_API_KEY="YOUR_OPENAI_API_KEY"`
+
 `flask run`
 
 The application will be exposed on `localhost` at port `5000`.
